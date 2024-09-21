@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">demo</string>
+    <string name="my_cards">Мои карты</string>
+    <string name="another_cards">Другие карты</string>
+    <string name="card_one">Карта 1</string>
+    <string name="united">Единая</string>
+    <string name="sample_balance">120 ₸</string>
+    <string name="sample_remaining_rides">1 поездка, Алматы</string>
+    <string name="card_details">Детали карты</string>
+    <string name="deposit_action">Пополнить</string>
+    <string name="transfer_action">Перевести</string>
 </resources>
