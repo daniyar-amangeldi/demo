@@ -5,10 +5,4 @@
     <color name="red">#FF0000</color>
     <color name="green">#00BC29</color>
     <color name="brown">#340303</color>
-
-    <color name="color_text_primary">#212121</color>
-    <color name="color_yellow_primary">#ffd200</color>
-    <color name="color_yellow_secondary">#ffdd40</color>
-    <color name="color_gray">#22263d</color>
-    <color name="color_gray_light">#f3f4fa</color>
 </resources>
