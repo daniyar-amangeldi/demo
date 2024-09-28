@@ -55,6 +55,16 @@
         android:textColor="@color/black"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/first_name_validation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Enter your name"
+        android:textColor="@color/red"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/last_name_input"
         android:layout_width="match_parent"
@@ -67,6 +77,16 @@
         android:padding="16dp"
         android:textColor="@color/black"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/last_name_validation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Enter your surname"
+        android:textColor="@color/red"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
