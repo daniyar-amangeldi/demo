@@ -18,6 +18,7 @@
             android:layout_marginTop="16dp">
 
             <TextView
+                android:id="@+id/my_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -27,6 +28,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/other_cards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -59,6 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/sample_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
