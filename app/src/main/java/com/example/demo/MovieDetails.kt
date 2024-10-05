@@ -1,22 +1,20 @@
 package com.example.demo
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.demo.databinding.ActivityMainBinding
+import com.example.demo.databinding.ActivityMovieDetailsBinding
 
-class MainActivity : AppCompatActivity() {
+class MovieDetails : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         enableEdgeToEdge()
@@ -27,17 +25,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val adapter = MovieAdapter(
-            onMovieClickListener = {
-                val intent = Intent(this, MovieDetails::class.java)
-                intent.putExtra("title", it.title)
+        val movieTitle = intent.getStringExtra("title")
 
-                startActivity(intent)
-            }
-        )
-
-        binding.recyclerView.adapter = adapter
-
-        adapter.setData(DataSource.movieList)
+        binding.movieTitle.text = movieTitle
     }
 }
