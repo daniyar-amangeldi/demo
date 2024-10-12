@@ -2,7 +2,7 @@ package com.example.demo
 
 object DataSource {
 
-    val movieList = arrayListOf(
+    var movieList = arrayListOf(
         Movie(
             title = "Venom Let There Be Carange",
             rating = 6.4,
@@ -74,4 +74,32 @@ object DataSource {
             duration = 124
         ),
     )
+
+    fun setFavourite(movieId: String): ArrayList<Movie> {
+        movieList = ArrayList(
+            movieList.map {
+                if (it.id == movieId) {
+                    it.copy(isFavourite = true)
+                } else {
+                    it
+                }
+            }
+        )
+
+        return movieList
+    }
+
+    fun unsetFavourite(movieId: String): ArrayList<Movie> {
+        movieList = ArrayList(
+            movieList.map {
+                if (it.id == movieId) {
+                    it.copy(isFavourite = false)
+                } else {
+                    it
+                }
+            }
+        )
+
+        return movieList
+    }
 }

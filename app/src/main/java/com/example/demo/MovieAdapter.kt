@@ -1,12 +1,15 @@
 package com.example.demo
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo.databinding.ItemMovieBinding
 
 class MovieAdapter(
-    private val onMovieClickListener: (Movie) -> Unit
+    private val onMovieClickListener: (Movie) -> Unit,
+    private val onChangeFavouriteState: (Movie, Boolean) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val movieList = ArrayList<Movie>()
@@ -30,6 +33,7 @@ class MovieAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        println("onBindViewHolder: $position")
         holder.bind(movieList[position])
     }
 
@@ -52,6 +56,24 @@ class MovieAdapter(
 
                 root.setOnClickListener {
                     onMovieClickListener(movie)
+                }
+
+                if (movie.isFavourite) {
+                    favouriteImageView.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            root.context, R.color.red
+                        )
+                    )
+                } else {
+                    favouriteImageView.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            root.context, R.color.black
+                        )
+                    )
+                }
+
+                favouriteImageView.setOnClickListener {
+                    onChangeFavouriteState(movie, !movie.isFavourite)
                 }
             }
         }

@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private var adapter: MovieAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,17 +29,30 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val adapter = MovieAdapter(
+        adapter = MovieAdapter(
             onMovieClickListener = {
                 val intent = Intent(this, MovieDetails::class.java)
                 intent.putExtra("title", it.title)
 
                 startActivity(intent)
+            },
+            onChangeFavouriteState = { movie, isFavourite ->
+                changeFavouriteState(movie.id, isFavourite)
             }
         )
 
         binding.recyclerView.adapter = adapter
 
-        adapter.setData(DataSource.movieList)
+        adapter?.setData(DataSource.movieList)
+    }
+
+    private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
+        adapter?.setData(
+            if (isFavourite) {
+                DataSource.setFavourite(movieId)
+            } else {
+                DataSource.unsetFavourite(movieId)
+            }
+        )
     }
 }

@@ -7,5 +7,6 @@ data class Movie(
     val title: String,
     val rating: Double,
     val genre: String = "Horror",
-    val duration: Int // duration in minutes
+    val duration: Int, // duration in minutes
+    val isFavourite: Boolean = false
 )
