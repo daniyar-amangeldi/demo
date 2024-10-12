@@ -9,4 +9,6 @@
     <string name="card_details">Детали карты</string>
     <string name="deposit_action">Пополнить</string>
     <string name="transfer_action">Перевести</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
