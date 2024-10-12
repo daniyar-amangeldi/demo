@@ -4,22 +4,14 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo.databinding.ItemMovieBinding
 
 class MovieAdapter(
     private val onMovieClickListener: (Movie) -> Unit,
     private val onChangeFavouriteState: (Movie, Boolean) -> Unit
-) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-
-    private val movieList = ArrayList<Movie>()
-
-    fun setData(randomList: ArrayList<Movie>) {
-        movieList.clear()
-        movieList.addAll(randomList)
-
-        notifyDataSetChanged()
-    }
+) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieItemCallback()) {
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,13 +20,10 @@ class MovieAdapter(
         )
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = movieList.size
-
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         println("onBindViewHolder: $position")
-        holder.bind(movieList[position])
+        holder.bind(getItem(position))
     }
 
     /**

@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = adapter
 
-        adapter?.setData(DataSource.movieList)
+        adapter?.submitList(DataSource.movieList)
     }
 
     private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
-        adapter?.setData(
+        adapter?.submitList(
             if (isFavourite) {
                 DataSource.setFavourite(movieId)
             } else {
