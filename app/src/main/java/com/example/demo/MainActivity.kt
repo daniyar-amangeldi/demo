@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val movieFavouritesFragment = MovieFavouritesFragment.newInstance()
+    private val profileFragment = ProfileFragment.newInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,6 +34,34 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .add(R.id.fragment_container_view, movieListFragment)
             .commit()
+
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.movie_list -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_view, movieListFragment)
+                        .commit()
+                }
+
+                R.id.movie_favourites -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_view, movieFavouritesFragment)
+                        .commit()
+                }
+
+                R.id.profile -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_view, profileFragment)
+                        .commit()
+
+                }
+            }
+
+            true
+        }
     }
 
 }
