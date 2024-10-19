@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.demo.databinding.FragmentMovieListBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MovieListFragment : Fragment() {
@@ -48,7 +51,22 @@ class MovieListFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
 
-        adapter?.submitList(DataSource.movieList)
+        ApiSource.client.fetchMovieList().enqueue(object : Callback<List<Movie>> {
+            override fun onResponse(p0: Call<List<Movie>>, p1: Response<List<Movie>>) {
+                println("RetrofitRequest: ${p1.body()}")
+
+                val movieList = p1.body()
+
+                if (movieList != null) {
+                    adapter?.submitList(movieList)
+                }
+            }
+
+            override fun onFailure(p0: Call<List<Movie>>, p1: Throwable) {
+                println("RetrofitRequest: ${p1}")
+            }
+
+        })
     }
 
     private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
