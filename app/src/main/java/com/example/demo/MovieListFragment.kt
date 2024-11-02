@@ -51,18 +51,18 @@ class MovieListFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
 
-        ApiSource.client.fetchMovieList().enqueue(object : Callback<List<Movie>> {
-            override fun onResponse(p0: Call<List<Movie>>, p1: Response<List<Movie>>) {
+        ApiSource.client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
+            override fun onResponse(p0: Call<MovieListResponse>, p1: Response<MovieListResponse>) {
                 println("RetrofitRequest: ${p1.body()}")
 
                 val movieList = p1.body()
 
                 if (movieList != null) {
-                    adapter?.submitList(movieList)
+                    adapter?.submitList(movieList.results?.map(movieMapper))
                 }
             }
 
-            override fun onFailure(p0: Call<List<Movie>>, p1: Throwable) {
+            override fun onFailure(p0: Call<MovieListResponse>, p1: Throwable) {
                 println("RetrofitRequest: ${p1}")
             }
 

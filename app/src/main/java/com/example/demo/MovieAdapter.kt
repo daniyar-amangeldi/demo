@@ -68,7 +68,7 @@ class MovieAdapter(
 
                 Glide
                     .with(root.context)
-                    .load(movie.imageUrl)
+                    .load("https://image.tmdb.org/t/p/original" + movie.imageUrl)
                     .into(moviePoster);
             }
         }

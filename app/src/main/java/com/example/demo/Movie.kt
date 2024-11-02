@@ -12,3 +12,13 @@ data class Movie(
     val isFavourite: Boolean = false,
     @SerializedName("image_url") val imageUrl: String = ""
 )
+
+val movieMapper: (MovieResponse) -> Movie = { response ->
+    Movie(
+        id = response.id.toString(),
+        title = response.title,
+        rating = response.voteAverage,
+        duration = 120,
+        imageUrl = response.posterPath
+    )
+}

@@ -7,4 +7,7 @@ interface MovieApi {
 
     @GET("daniyar-amangeldi/fake-movie-api/movie_list")
     fun fetchMovieList(): Call<List<Movie>>
+
+    @GET("3/movie/popular")
+    fun fetchMovieListFromTMDB(): Call<MovieListResponse>
 }
