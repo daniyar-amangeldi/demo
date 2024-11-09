@@ -1,10 +1,14 @@
-package com.example.demo
+package com.example.demo.view.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.demo.view.fragment.MovieFavouritesFragment
+import com.example.demo.view.fragment.MovieListFragment
+import com.example.demo.view.fragment.ProfileFragment
+import com.example.demo.R
 import com.example.demo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

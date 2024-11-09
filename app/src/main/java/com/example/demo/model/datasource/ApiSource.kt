@@ -1,5 +1,6 @@
-package com.example.demo
+package com.example.demo.model.datasource
 
+import com.example.demo.model.api.MovieApi
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

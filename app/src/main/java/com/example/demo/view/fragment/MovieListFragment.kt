@@ -1,15 +1,19 @@
-package com.example.demo
+package com.example.demo.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.demo.model.datasource.ApiSource
+import com.example.demo.view.adapter.MovieAdapter
+import com.example.demo.model.entity.MovieListResponse
+import com.example.demo.R
 import com.example.demo.databinding.FragmentMovieListBinding
+import com.example.demo.model.entity.movieMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class MovieListFragment : Fragment() {
 
@@ -70,12 +74,6 @@ class MovieListFragment : Fragment() {
     }
 
     private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
-        adapter?.submitList(
-            if (isFavourite) {
-                DataSource.setFavourite(movieId)
-            } else {
-                DataSource.unsetFavourite(movieId)
-            }
-        )
+        // TODO: Handle favourite state logic
     }
 }

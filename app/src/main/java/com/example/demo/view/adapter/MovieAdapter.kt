@@ -1,4 +1,4 @@
-package com.example.demo
+package com.example.demo.view.adapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -7,7 +7,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.demo.R
 import com.example.demo.databinding.ItemMovieBinding
+import com.example.demo.model.entity.Movie
 
 class MovieAdapter(
     private val onMovieClickListener: (Movie) -> Unit,

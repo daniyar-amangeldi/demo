@@ -1,5 +1,7 @@
-package com.example.demo
+package com.example.demo.model.api
 
+import com.example.demo.model.entity.Movie
+import com.example.demo.model.entity.MovieListResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

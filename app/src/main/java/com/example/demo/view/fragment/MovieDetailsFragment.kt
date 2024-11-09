@@ -1,13 +1,12 @@
-package com.example.demo
+package com.example.demo.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.example.demo.databinding.FragmentMovieDetailsBinding
-
 
 class MovieDetailsFragment : Fragment() {
 
