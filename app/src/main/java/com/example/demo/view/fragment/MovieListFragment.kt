@@ -4,27 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.demo.model.datasource.ApiSource
-import com.example.demo.view.adapter.MovieAdapter
-import com.example.demo.model.entity.MovieListResponse
+import androidx.lifecycle.ViewModelProvider
 import com.example.demo.R
 import com.example.demo.databinding.FragmentMovieListBinding
-import com.example.demo.model.entity.movieMapper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.demo.view.adapter.MovieAdapter
+import com.example.demo.viewmodel.MovieListUI
+import com.example.demo.viewmodel.MovieViewModel
 
 class MovieListFragment : Fragment() {
+
+    companion object {
+
+        fun newInstance() = MovieListFragment()
+    }
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding: FragmentMovieListBinding get() = _binding!!
 
     private var adapter: MovieAdapter? = null
 
-    companion object {
-
-        fun newInstance() = MovieListFragment()
+    private val viewModel: MovieViewModel by lazy {
+        ViewModelProvider(this)[MovieViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -55,22 +59,28 @@ class MovieListFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
 
-        ApiSource.client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
-            override fun onResponse(p0: Call<MovieListResponse>, p1: Response<MovieListResponse>) {
-                println("RetrofitRequest: ${p1.body()}")
+        configureObserver()
 
-                val movieList = p1.body()
+        viewModel.fetchPopularMovieList()
+    }
 
-                if (movieList != null) {
-                    adapter?.submitList(movieList.results?.map(movieMapper))
-                }
+    private fun configureObserver() {
+        viewModel.movieListUI.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MovieListUI.Success -> adapter?.submitList(state.movieList)
+                is MovieListUI.Error -> handleError(state.errorMessage)
+                is MovieListUI.Empty -> handleEmptyState()
+                is MovieListUI.Loading -> binding.progressBar.isVisible = state.isLoading
             }
+        }
+    }
 
-            override fun onFailure(p0: Call<MovieListResponse>, p1: Throwable) {
-                println("RetrofitRequest: ${p1}")
-            }
+    private fun handleEmptyState() {
+        // TODO: Handle UI for case when there is no movie list
+    }
 
-        })
+    private fun handleError(@StringRes errorMessage: Int) {
+        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
