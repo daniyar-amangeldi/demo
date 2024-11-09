@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.demo.R
+import com.example.demo.viewmodel.MovieViewModelFactory
+import com.example.demo.viewmodel.MovieViewmodel
 
 /**
  * A simple [Fragment] subclass.
@@ -13,6 +17,8 @@ import com.example.demo.R
  * create an instance of this fragment.
  */
 class MovieFavouritesFragment : Fragment() {
+
+    private val viewModel by activityViewModels<MovieViewmodel> { MovieViewModelFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

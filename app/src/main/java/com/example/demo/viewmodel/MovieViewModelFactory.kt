@@ -8,7 +8,7 @@ class MovieViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MovieViewModel(
+        return MovieViewmodel(
             client = ApiSource.client
         ) as T
     }

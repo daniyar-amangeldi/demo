@@ -48,6 +48,8 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.okhttp)
     implementation(libs.logging)
+    implementation(libs.lifecycleViewModel)
+    implementation(libs.androidx.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

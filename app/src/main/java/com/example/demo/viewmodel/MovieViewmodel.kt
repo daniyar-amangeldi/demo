@@ -12,15 +12,20 @@ import com.example.demo.model.entity.movieMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Date
 
-class MovieViewModel(
+class MovieViewmodel(
     private val client: MovieApi
-) : ViewModel() {
+): ViewModel() {
 
     private val _movieListUI = MutableLiveData<MovieListUI>()
     val movieListUI: LiveData<MovieListUI> = _movieListUI
 
-    fun fetchPopularMovieList() {
+    init{
+        fetchPopularMovieList()
+    }
+
+    private fun fetchPopularMovieList() {
         _movieListUI.value = MovieListUI.Loading(true)
 
         client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
@@ -34,7 +39,7 @@ class MovieViewModel(
 
                 if (movieList != null) {
                     _movieListUI.value = MovieListUI.Success(movieList.results.map(movieMapper))
-                    _movieListUI.value = MovieListUI.Loading(false)
+//                    _movieListUI.value = MovieListUI.Loading(false)
                 } else {
                     _movieListUI.value = MovieListUI.Empty
                 }
