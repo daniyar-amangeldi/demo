@@ -14,6 +14,7 @@ import com.example.demo.databinding.FragmentMovieListBinding
 import com.example.demo.view.adapter.MovieAdapter
 import com.example.demo.viewmodel.MovieListUI
 import com.example.demo.viewmodel.MovieViewModel
+import com.example.demo.viewmodel.MovieViewModelFactory
 
 class MovieListFragment : Fragment() {
 
@@ -28,7 +29,7 @@ class MovieListFragment : Fragment() {
     private var adapter: MovieAdapter? = null
 
     private val viewModel: MovieViewModel by lazy {
-        ViewModelProvider(this)[MovieViewModel::class.java]
+        MovieViewModelFactory().create(MovieViewModel::class.java)
     }
 
     override fun onCreateView(

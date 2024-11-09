@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.demo.R
-import com.example.demo.model.datasource.ApiSource
+import com.example.demo.model.api.MovieApi
 import com.example.demo.model.entity.Movie
 import com.example.demo.model.entity.MovieListResponse
 import com.example.demo.model.entity.movieMapper
@@ -13,7 +13,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(
+    private val client: MovieApi
+) : ViewModel() {
 
     private val _movieListUI = MutableLiveData<MovieListUI>()
     val movieListUI: LiveData<MovieListUI> = _movieListUI
@@ -21,7 +23,7 @@ class MovieViewModel : ViewModel() {
     fun fetchPopularMovieList() {
         _movieListUI.value = MovieListUI.Loading(true)
 
-        ApiSource.client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
+        client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
             override fun onResponse(p0: Call<MovieListResponse>, p1: Response<MovieListResponse>) {
                 if (!p1.isSuccessful) {
                     _movieListUI.value = MovieListUI.Error(R.string.error_general)
