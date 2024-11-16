@@ -4,14 +4,13 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.demo.R
+import androidx.lifecycle.viewModelScope
 import com.example.demo.model.api.MovieApi
 import com.example.demo.model.entity.Movie
-import com.example.demo.model.entity.MovieListResponse
 import com.example.demo.model.entity.movieMapper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieViewModel(
     private val client: MovieApi
@@ -23,27 +22,19 @@ class MovieViewModel(
     fun fetchPopularMovieList() {
         _movieListUI.value = MovieListUI.Loading(true)
 
-        client.fetchMovieListFromTMDB().enqueue(object : Callback<MovieListResponse> {
-            override fun onResponse(p0: Call<MovieListResponse>, p1: Response<MovieListResponse>) {
-                if (!p1.isSuccessful) {
-                    _movieListUI.value = MovieListUI.Error(R.string.error_general)
-                    return
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            val movieList = client.fetchMovieList()
 
-                val movieList = p1.body()
-
-                if (movieList != null) {
-                    _movieListUI.value = MovieListUI.Success(movieList.results.map(movieMapper))
-                    _movieListUI.value = MovieListUI.Loading(false)
-                } else {
+            withContext(Dispatchers.Main) {
+                if (movieList.results.isEmpty()) {
                     _movieListUI.value = MovieListUI.Empty
+                } else {
+                    _movieListUI.value = MovieListUI.Success(movieList.results.map(movieMapper))
                 }
-            }
 
-            override fun onFailure(p0: Call<MovieListResponse>, p1: Throwable) {
-                _movieListUI.value = MovieListUI.Error(R.string.error_general)
+                _movieListUI.value = MovieListUI.Loading(false)
             }
-        })
+        }
     }
 }
 

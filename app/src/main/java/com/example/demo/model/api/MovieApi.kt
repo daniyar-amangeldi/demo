@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface MovieApi {
 
     @GET("3/movie/popular")
-    fun fetchMovieListFromTMDB(): Call<MovieListResponse>
+    suspend fun fetchMovieList(): MovieListResponse
 }

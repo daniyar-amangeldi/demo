@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.demo.R
 import com.example.demo.databinding.FragmentMovieListBinding
 import com.example.demo.view.adapter.MovieAdapter
