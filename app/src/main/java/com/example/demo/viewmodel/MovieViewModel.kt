@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.demo.model.api.MovieApi
+import com.example.demo.model.entity.Genre
 import com.example.demo.model.entity.Movie
 import com.example.demo.model.entity.movieMapper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,9 +25,20 @@ class MovieViewModel(
         _movieListUI.value = MovieListUI.Loading(true)
 
         viewModelScope.launch(Dispatchers.IO) {
-            val movieList = client.fetchMovieList()
+            val movieListDeferred = async {
+                client.fetchMovieList()
+            }
+
+            val genreListDeferred = async {
+                client.fetchMovieGenres()
+            }
+
+            val movieList = movieListDeferred.await()
+            val genreList = genreListDeferred.await()
 
             withContext(Dispatchers.Main) {
+                println(genreList)
+
                 if (movieList.results.isEmpty()) {
                     _movieListUI.value = MovieListUI.Empty
                 } else {

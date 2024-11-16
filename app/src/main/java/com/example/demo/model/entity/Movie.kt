@@ -19,6 +19,7 @@ val movieMapper: (MovieResponse) -> Movie = { response ->
         title = response.title,
         rating = response.voteAverage,
         duration = 120,
-        imageUrl = response.posterPath
+        imageUrl = response.posterPath,
+        genre = Genre.fromId(response.genres.first())?.displayName ?: "Horror"
     )
 }
