@@ -73,6 +73,9 @@ class MovieListFragment : Fragment() {
                 is MovieListUI.Empty -> handleEmptyState()
                 is MovieListUI.Loading -> binding.progressBar.isVisible = state.isLoading
                 is MovieListUI.MovieInserted -> handleMovieInsert(state.movie)
+                is MovieListUI.MovieIsAlreadyFavourite -> Toast.makeText(
+                    requireContext(), "Movie is already favourite", Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

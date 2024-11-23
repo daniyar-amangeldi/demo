@@ -33,6 +33,8 @@ class MovieViewModel(
                 }
             } catch (e: Exception) {
                 println("MovieInsertException: $e")
+
+                _movieListUI.value = MovieListUI.MovieIsAlreadyFavourite
             }
         }
     }
@@ -75,4 +77,5 @@ sealed interface MovieListUI {
     data class Success(val movieList: List<Movie>) : MovieListUI
     data object Empty : MovieListUI
     data class MovieInserted(val movie: Movie) : MovieListUI
+    data object MovieIsAlreadyFavourite : MovieListUI
 }
