@@ -16,6 +16,9 @@ class MovieDetailsViewModel(
     private val _movieDetailsUI = MutableLiveData<MovieDetailsUI>()
     val movieDetailsUI: LiveData<MovieDetailsUI> = _movieDetailsUI
 
+    val movieListObservable = movieDao.getAllObservable()
+    val movieListFlow = movieDao.getAllObservableFlow()
+
     fun fetchFavouriteMovieList() {
         viewModelScope.launch {
             try {

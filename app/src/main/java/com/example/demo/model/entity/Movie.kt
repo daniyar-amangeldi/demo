@@ -10,7 +10,7 @@ data class Movie(
     val genre: String = "Horror",
     val duration: Int, // duration in minutes
     val isFavourite: Boolean = false,
-    @SerializedName("image_url") val imageUrl: String = ""
+    @SerializedName("image_url") val imageUrl: String = "",
 )
 
 val movieMapper: (MovieResponse) -> Movie = { response ->
@@ -31,6 +31,7 @@ val movieEntityMapper: (MovieEntity) -> Movie = { response ->
         rating = response.rating,
         duration = 120,
         imageUrl = response.imageUrl,
-        genre = response.genre
+        genre = response.genre,
+        isFavourite = true
     )
 }

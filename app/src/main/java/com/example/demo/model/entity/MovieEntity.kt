@@ -21,7 +21,7 @@ data class MovieEntity(
             rating = movie.rating,
             genre = movie.genre,
             duration = movie.duration,
-            imageUrl = movie.imageUrl
+            imageUrl = movie.imageUrl,
         )
     }
 }

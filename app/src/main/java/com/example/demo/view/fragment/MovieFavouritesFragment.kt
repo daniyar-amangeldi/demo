@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.demo.databinding.FragmentMovieFavouritesBinding
+import com.example.demo.model.entity.movieEntityMapper
 import com.example.demo.view.adapter.MovieAdapter
 import com.example.demo.viewmodel.MovieDetailsUI
 import com.example.demo.viewmodel.MovieDetailsViewModel
 import com.example.demo.viewmodel.MovieDetailsViewModelFactory
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class MovieFavouritesFragment : Fragment() {
 
@@ -54,10 +59,19 @@ class MovieFavouritesFragment : Fragment() {
     }
 
     private fun configureObserver() {
-        viewModel.movieDetailsUI.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is MovieDetailsUI.Success -> adapter?.submitList(state.movieList)
-            }
+        lifecycleScope.launch {
+            viewModel.movieListFlow.map { it.map { movieEntityMapper.invoke(it) } }.filterNotNull()
+                .collect {
+                    adapter?.submitList(it)
+                }
         }
+//        viewModel.movieListObservable.observe(viewLifecycleOwner){ list ->
+//            list?.let { adapter?.submitList(it) }
+//        }
+//        viewModel.movieDetailsUI.observe(viewLifecycleOwner) { state ->
+//            when (state) {
+//                is MovieDetailsUI.Success -> adapter?.submitList(state.movieList)
+//            }
+//        }
     }
 }
