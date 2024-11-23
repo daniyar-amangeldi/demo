@@ -23,3 +23,14 @@ val movieMapper: (MovieResponse) -> Movie = { response ->
         genre = Genre.fromId(response.genres.first())?.displayName ?: "Horror"
     )
 }
+
+val movieEntityMapper: (MovieEntity) -> Movie = { response ->
+    Movie(
+        id = response.id,
+        title = response.title,
+        rating = response.rating,
+        duration = 120,
+        imageUrl = response.imageUrl,
+        genre = response.genre
+    )
+}

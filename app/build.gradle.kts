@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    ksp(libs.room.runtime)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

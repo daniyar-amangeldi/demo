@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.demo.R
 import com.example.demo.databinding.FragmentMovieListBinding
+import com.example.demo.model.entity.Movie
 import com.example.demo.view.adapter.MovieAdapter
 import com.example.demo.viewmodel.MovieListUI
 import com.example.demo.viewmodel.MovieViewModel
@@ -53,7 +54,7 @@ class MovieListFragment : Fragment() {
                     .commit()
             },
             onChangeFavouriteState = { movie, isFavourite ->
-                changeFavouriteState(movie.id, isFavourite)
+                viewModel.changeFavouriteState(movie, isFavourite)
             }
         )
 
@@ -71,8 +72,23 @@ class MovieListFragment : Fragment() {
                 is MovieListUI.Error -> handleError(state.errorMessage)
                 is MovieListUI.Empty -> handleEmptyState()
                 is MovieListUI.Loading -> binding.progressBar.isVisible = state.isLoading
+                is MovieListUI.MovieInserted -> handleMovieInsert(state.movie)
             }
         }
+    }
+
+    private fun handleMovieInsert(movie: Movie) {
+        Toast.makeText(requireContext(), "Movie saved!", Toast.LENGTH_SHORT).show()
+
+        adapter?.submitList(
+            adapter?.currentList?.map {
+                if (it.id == movie.id) {
+                    movie
+                } else {
+                    it
+                }
+            }
+        )
     }
 
     private fun handleEmptyState() {
@@ -81,9 +97,5 @@ class MovieListFragment : Fragment() {
 
     private fun handleError(@StringRes errorMessage: Int) {
         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun changeFavouriteState(movieId: String, isFavourite: Boolean) {
-        // TODO: Handle favourite state logic
     }
 }
