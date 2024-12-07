@@ -4,40 +4,46 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.demo.R
+import com.example.demo.databinding.FragmentProfielBinding
+import com.example.demo.view.util.UserData
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
+
+    private var _binding: FragmentProfielBinding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        fun newInstance() = ProfileFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profiel, container, false)
+        _binding = FragmentProfielBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfielFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val userData = UserData(requireContext())
+        println("isAuthorized: ${userData.isAuthorized()}")
+
+        with(binding) {
+            if (userData.isAuthorized()) {
+                welcomeText.isVisible = true
+                actionButton.isVisible = false
+            } else {
+                welcomeText.isVisible = false
+                actionButton.isVisible = true
+                actionButton.setOnClickListener {
+                    userData.setAuthorizationState(true)
                 }
             }
+        }
     }
 }
