@@ -19,7 +19,7 @@ data class MovieEntity(
             id = movie.id,
             title = movie.title,
             rating = movie.rating,
-            genre = movie.genre,
+            genre = movie.genre.first(),
             duration = movie.duration,
             imageUrl = movie.imageUrl
         )

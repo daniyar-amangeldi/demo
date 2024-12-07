@@ -44,7 +44,7 @@ class MovieAdapter(
                 movieTitle.text = movie.title
                 movieRating.text = "${movie.rating}/10 IMDb"
                 movieDuration.text = "${movie.duration} min."
-                movieGenre.text = movie.genre
+                genreListView.set(movie.genre)
 
                 root.setOnClickListener {
                     onMovieClickListener(movie)

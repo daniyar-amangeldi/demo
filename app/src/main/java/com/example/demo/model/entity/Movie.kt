@@ -7,7 +7,7 @@ data class Movie(
     val id: String = UUID.randomUUID().toString(),
     val title: String,
     val rating: Double,
-    val genre: String = "Horror",
+    val genre: List<String> = listOf("Horror"),
     val duration: Int, // duration in minutes
     val isFavourite: Boolean = false,
     @SerializedName("image_url") val imageUrl: String = ""
@@ -20,7 +20,9 @@ val movieMapper: (MovieResponse) -> Movie = { response ->
         rating = response.voteAverage,
         duration = 120,
         imageUrl = response.posterPath,
-        genre = Genre.fromId(response.genres.first())?.displayName ?: "Horror"
+        genre = response.genres.map {
+            Genre.fromId(it)?.displayName ?: "Horror"
+        }
     )
 }
 
@@ -31,6 +33,6 @@ val movieEntityMapper: (MovieEntity) -> Movie = { response ->
         rating = response.rating,
         duration = 120,
         imageUrl = response.imageUrl,
-        genre = response.genre
+        genre = listOf(response.genre)
     )
 }

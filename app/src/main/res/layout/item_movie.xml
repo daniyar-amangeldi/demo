@@ -75,27 +75,11 @@
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
+            <com.example.demo.view.custom.GenreListView
+                android:id="@+id/genre_list_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="#dce3ff"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:id="@+id/movie_genre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_marginVertical="4dp"
-                    android:textAllCaps="true"
-                    android:textColor="#98b0ec"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    tools:text="Horror" />
-
-            </androidx.cardview.widget.CardView>
+                android:layout_marginTop="4dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
