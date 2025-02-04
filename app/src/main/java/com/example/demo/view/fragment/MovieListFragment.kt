@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.demo.R
 import com.example.demo.databinding.FragmentMovieListBinding
 import com.example.demo.model.entity.Movie
 import com.example.demo.view.adapter.MovieAdapter
@@ -17,11 +16,6 @@ import com.example.demo.viewmodel.MovieViewModel
 import com.example.demo.viewmodel.MovieViewModelFactory
 
 class MovieListFragment : Fragment() {
-
-    companion object {
-
-        fun newInstance() = MovieListFragment()
-    }
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding: FragmentMovieListBinding get() = _binding!!
@@ -47,11 +41,11 @@ class MovieListFragment : Fragment() {
             onMovieClickListener = {
                 val movieDetailsFragment = MovieDetailsFragment.newInstance(it.title)
 
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_view, movieDetailsFragment)
-                    .addToBackStack(null)
-                    .commit()
+//                requireActivity().supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.fragment_container_view, movieDetailsFragment)
+//                    .addToBackStack(null)
+//                    .commit()
             },
             onChangeFavouriteState = { movie, isFavourite ->
                 viewModel.changeFavouriteState(movie, isFavourite)

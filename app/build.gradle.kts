@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
+    val nav_version = "2.8.6"
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

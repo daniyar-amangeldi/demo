@@ -8,8 +8,8 @@
     android:orientation="vertical"
     tools:context=".view.activity.MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -18,7 +18,7 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        app:backgroundTint="@color/white"
         app:menu="@menu/menu" />
 
 </LinearLayout>
