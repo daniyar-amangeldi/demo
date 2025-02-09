@@ -1,7 +1,9 @@
 package com.example.demo.view.activity
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,10 +14,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.demo.R
 import com.example.demo.databinding.ActivityMainBinding
 import com.example.demo.util.BaseFragment
+import com.example.demo.viewmodel.ApplicationViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: ApplicationViewModel by viewModels<ApplicationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        startActivity(intent)
+        intent.data?.let { handleDeeplink(it) }
 
         val fragments = listOf(
             BaseFragment.newInstance(
@@ -76,6 +80,12 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+    }
+
+    private fun handleDeeplink(uri: Uri) {
+        val movieId = uri.getQueryParameter("id")
+
+        viewModel.movieId = movieId
     }
 
 }
