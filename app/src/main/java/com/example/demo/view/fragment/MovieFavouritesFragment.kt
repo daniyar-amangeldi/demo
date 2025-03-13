@@ -9,12 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.demo.databinding.FragmentMovieFavouritesBinding
 import com.example.demo.model.entity.movieEntityMapper
 import com.example.demo.view.adapter.MovieAdapter
-import com.example.demo.viewmodel.MovieDetailsUI
 import com.example.demo.viewmodel.MovieDetailsViewModel
-import com.example.demo.viewmodel.MovieDetailsViewModelFactory
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieFavouritesFragment : Fragment() {
 
@@ -25,9 +24,7 @@ class MovieFavouritesFragment : Fragment() {
     private var _binding: FragmentMovieFavouritesBinding? = null
     private val binding: FragmentMovieFavouritesBinding get() = _binding!!
 
-    private val viewModel: MovieDetailsViewModel by lazy {
-        MovieDetailsViewModelFactory().create(MovieDetailsViewModel::class.java)
-    }
+    private val viewModel: MovieDetailsViewModel by viewModel()
 
     private var adapter: MovieAdapter? = null
 

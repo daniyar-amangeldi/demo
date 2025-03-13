@@ -14,7 +14,7 @@ import com.example.demo.model.entity.Movie
 import com.example.demo.view.adapter.MovieAdapter
 import com.example.demo.viewmodel.MovieListUI
 import com.example.demo.viewmodel.MovieViewModel
-import com.example.demo.viewmodel.MovieViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieListFragment : Fragment() {
 
@@ -28,9 +28,7 @@ class MovieListFragment : Fragment() {
 
     private var adapter: MovieAdapter? = null
 
-    private val viewModel: MovieViewModel by lazy {
-        MovieViewModelFactory().create(MovieViewModel::class.java)
-    }
+    private val viewModel: MovieViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

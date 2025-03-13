@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
     ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
