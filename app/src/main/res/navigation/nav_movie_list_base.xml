@@ -6,6 +6,20 @@
 
     <fragment
         android:id="@+id/movie_list_fragment"
-        android:name="com.example.demo.view.fragment.MovieListFragment" />
+        android:name="com.example.demo.view.fragment.MovieListFragment">
+
+        <action
+            android:id="@+id/action_movie_list_fragment_to_movie_details_fragment"
+            app:destination="@id/movie_details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movie_details_fragment"
+        android:name="com.example.demo.view.fragment.MovieDetailsFragment">
+
+        <argument
+            android:name="movie_title"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

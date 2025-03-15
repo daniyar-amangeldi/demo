@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.demo.databinding.FragmentMovieDetailsBinding
 
 class MovieDetailsFragment : Fragment() {
@@ -13,13 +13,7 @@ class MovieDetailsFragment : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding: FragmentMovieDetailsBinding get() = _binding!!
 
-    companion object {
-        private const val KEY_MOVIE_TITLE = "movie_title"
-
-        fun newInstance(movieTitle: String) = MovieDetailsFragment().apply {
-            arguments = bundleOf(KEY_MOVIE_TITLE to movieTitle)
-        }
-    }
+    private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +26,6 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.movieTitle.text = arguments?.getString(KEY_MOVIE_TITLE)
+        binding.movieTitle.text = args.movieTitle
     }
 }

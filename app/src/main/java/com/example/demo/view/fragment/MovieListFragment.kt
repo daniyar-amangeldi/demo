@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.demo.databinding.FragmentMovieListBinding
 import com.example.demo.model.entity.Movie
 import com.example.demo.view.adapter.MovieAdapter
@@ -37,13 +38,8 @@ class MovieListFragment : Fragment() {
 
         adapter = MovieAdapter(
             onMovieClickListener = {
-                val movieDetailsFragment = MovieDetailsFragment.newInstance(it.title)
-
-//                requireActivity().supportFragmentManager
-//                    .beginTransaction()
-//                    .replace(R.id.fragment_container_view, movieDetailsFragment)
-//                    .addToBackStack(null)
-//                    .commit()
+                val direction = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(it.title)
+                findNavController().navigate(direction)
             },
             onChangeFavouriteState = { movie, isFavourite ->
                 viewModel.changeFavouriteState(movie, isFavourite)
