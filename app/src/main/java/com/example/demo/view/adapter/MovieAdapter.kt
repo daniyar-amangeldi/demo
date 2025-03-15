@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.demo.R
 import com.example.demo.databinding.ItemMovieBinding
-import com.example.demo.model.entity.Movie
+import com.example.domain.model.Movie
 
 class MovieAdapter(
     private val onMovieClickListener: (Movie) -> Unit,
