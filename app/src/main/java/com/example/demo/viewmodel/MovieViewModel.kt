@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.demo.domain.MovieRepository
 import com.example.demo.model.api.MovieApi
 import com.example.demo.model.dao.MovieDao
 import com.example.demo.model.entity.Movie
 import com.example.demo.model.entity.MovieEntity
+import com.example.demo.model.entity.movieEntityMapper
 import com.example.demo.model.entity.movieMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -22,6 +24,8 @@ class MovieViewModel(
 
     private val _movieListUI = MutableLiveData<MovieListUI>()
     val movieListUI: LiveData<MovieListUI> = _movieListUI
+
+    private val repository by lazy { MovieRepository(client, movieDao) }
 
     fun changeFavouriteState(movie: Movie, isFavourite: Boolean) {
         viewModelScope.launch {
@@ -45,24 +49,24 @@ class MovieViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             println("RoomDatabase: ${movieDao.getAll()}")
 
-            val movieListDeferred = async {
-                client.fetchMovieList()
+            val movies = async {
+                repository.getAllMovies()
             }
 
             val genreListDeferred = async {
                 client.fetchMovieGenres()
             }
 
-            val movieList = movieListDeferred.await()
             val genreList = genreListDeferred.await()
+            val movieList = movies.await()
 
             withContext(Dispatchers.Main) {
                 println(genreList)
 
-                if (movieList.results.isEmpty()) {
+                if (movieList.isEmpty()) {
                     _movieListUI.value = MovieListUI.Empty
                 } else {
-                    _movieListUI.value = MovieListUI.Success(movieList.results.map(movieMapper))
+                    _movieListUI.value = MovieListUI.Success(movieList)
                 }
 
                 _movieListUI.value = MovieListUI.Loading(false)

@@ -1,6 +1,5 @@
 package com.example.demo.model.datasource
 
-import com.example.demo.model.api.MovieApi
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,12 +24,10 @@ object ApiSource {
         })
         .build()
 
-    private val retrofit = Retrofit.Builder()
+    val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
-
-    val client = retrofit.create(MovieApi::class.java)
 
 }
