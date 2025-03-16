@@ -6,7 +6,7 @@ import com.example.data.source.remote.MovieRemoteDataSource
 import com.example.data.util.network.NetworkConfig
 import com.example.data.util.network.NetworkManager
 import com.example.data.source.local.DatabaseProvider
-import com.example.data.source.local.DatabaseProviderImpl
+import com.example.data.source.local.MovieDatabase
 import com.example.data.source.local.dao.MovieDao
 import com.example.demo.viewmodel.MovieDetailsViewModel
 import com.example.demo.viewmodel.MovieViewModel
@@ -65,12 +65,11 @@ val movieModule = module {
         )
     }
 
-//    single<MovieDao> {
-//        val databaseProvider = get<DatabaseProvider>()
-//        databaseProvider.getDatabase().movieDao()
-//    }
+    single<MovieDao> {
+        get<DatabaseProvider>().movieDao
+    }
 
     single<DatabaseProvider> {
-        DatabaseProviderImpl(androidContext())
+        MovieDatabase(androidContext())
     }
 }
