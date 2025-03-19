@@ -4,11 +4,11 @@ import com.example.domain.model.Movie
 import com.example.domain.repository.MovieRepository
 import com.example.domain.util.UseCase
 
-class GetMovieList(
+class InsertMovieList(
     private val repository: MovieRepository
-) : UseCase<List<Movie>, Boolean>() {
+) : UseCase<Unit, List<Movie>>() {
 
-    override suspend fun run(params: Boolean): Result<List<Movie>> {
-        return repository.getMovieList(params)
+    override suspend fun run(params: List<Movie>): Result<Unit> {
+        return repository.insertMovieList(params)
     }
 }

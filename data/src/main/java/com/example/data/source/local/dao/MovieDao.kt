@@ -12,5 +12,8 @@ interface MovieDao {
     suspend fun getAll(): List<MovieEntity>
 
     @Insert
+    suspend fun insertAll(movies: List<MovieEntity>)
+
+    @Insert
     suspend fun insert(movieEntity: MovieEntity)
 }

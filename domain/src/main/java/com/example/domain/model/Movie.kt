@@ -7,5 +7,5 @@ data class Movie(
     val genre: List<String>,
     val duration: Int,
     val isFavourite: Boolean = false,
-    val imageUrl: String
+    val imageUrl: String? = null
 )

@@ -68,10 +68,12 @@ class MovieAdapter(
                     onChangeFavouriteState(movie, !movie.isFavourite)
                 }
 
-                Glide
-                    .with(root.context)
-                    .load("https://image.tmdb.org/t/p/original" + movie.imageUrl)
-                    .into(moviePoster);
+                movie.imageUrl?.let {
+                    Glide
+                        .with(root.context)
+                        .load("https://image.tmdb.org/t/p/original" + movie.imageUrl)
+                        .into(moviePoster)
+                }
             }
         }
     }

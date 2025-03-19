@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Movie
 import com.example.domain.usecase.GetMovieList
+import com.example.domain.usecase.InsertMovieList
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
-    private val getMovieList: GetMovieList
+    private val getMovieList: GetMovieList,
+    private val insertMovieList: InsertMovieList
 ) : ViewModel() {
 
     private val _movieListUI = MutableLiveData<MovieListUI>()
@@ -23,11 +25,13 @@ class MovieViewModel(
         viewModelScope.launch {
             _movieListUI.value = MovieListUI.Loading(true)
 
-            getMovieList.run(Unit).fold(
+            getMovieList.run(false).fold(
                 onSuccess = { movieList ->
                     if (movieList.isEmpty()) {
                         _movieListUI.value = MovieListUI.Empty
                     } else {
+                        saveLocal(movieList)
+
                         _movieListUI.value = MovieListUI.Success(movieList)
                     }
                 },
@@ -37,6 +41,26 @@ class MovieViewModel(
             ).also {
                 _movieListUI.value = MovieListUI.Loading(false)
             }
+        }
+    }
+
+    private fun saveLocal(movieList: List<Movie>) {
+        viewModelScope.launch {
+            getMovieList.run(true).fold(
+                onSuccess = {
+                    insertMovieList.run(movieList).fold(
+                        onSuccess = {
+                            println("SaveLocalSuccess: $it")
+                        },
+                        onFailure = {
+                            println("SaveLocalFailed: $it")
+                        }
+                    )
+                },
+                onFailure = {
+                    Unit
+                }
+            )
         }
     }
 }

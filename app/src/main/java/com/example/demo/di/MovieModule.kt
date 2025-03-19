@@ -7,11 +7,13 @@ import com.example.data.util.network.NetworkConfig
 import com.example.data.util.network.NetworkManager
 import com.example.data.source.local.DatabaseProvider
 import com.example.data.source.local.MovieDatabase
+import com.example.data.source.local.MovieLocalDataSource
 import com.example.data.source.local.dao.MovieDao
 import com.example.demo.viewmodel.MovieDetailsViewModel
 import com.example.demo.viewmodel.MovieViewModel
 import com.example.domain.repository.MovieRepository
 import com.example.domain.usecase.GetMovieList
+import com.example.domain.usecase.InsertMovieList
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -26,7 +28,8 @@ val movieModule = module {
 
     viewModel {
         MovieViewModel(
-            getMovieList = get<GetMovieList>()
+            getMovieList = get<GetMovieList>(),
+            insertMovieList = get<InsertMovieList>()
         )
     }
 
@@ -36,9 +39,22 @@ val movieModule = module {
         )
     }
 
+    factory<InsertMovieList> {
+        InsertMovieList(
+            repository = get<MovieRepository>()
+        )
+    }
+
     single<MovieRepository> {
         MovieRepositoryImpl(
-            remoteDataSource = get<MovieRemoteDataSource>()
+            remoteDataSource = get<MovieRemoteDataSource>(),
+            localDataSource = get<MovieLocalDataSource>()
+        )
+    }
+
+    single<MovieLocalDataSource> {
+        MovieLocalDataSource(
+            dao = get<MovieDao>()
         )
     }
 
