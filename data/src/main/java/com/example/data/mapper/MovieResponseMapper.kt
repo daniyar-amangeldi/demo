@@ -34,7 +34,7 @@ val movieToMovieEntityMapper: (Movie) -> MovieEntity = { movie ->
         id = movie.id,
         title = movie.title,
         rating = movie.rating,
-        genre = movie.genre.first(),
+        genre = movie.genre.firstOrNull() ?: "Horror",
         duration = movie.duration,
         imageUrl = movie.imageUrl,
     )

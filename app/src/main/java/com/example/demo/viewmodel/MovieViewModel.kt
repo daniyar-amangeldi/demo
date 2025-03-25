@@ -25,7 +25,7 @@ class MovieViewModel(
         viewModelScope.launch {
             _movieListUI.value = MovieListUI.Loading(true)
 
-            getMovieList.run(false).fold(
+            getMovieList.run(true).fold(
                 onSuccess = { movieList ->
                     if (movieList.isEmpty()) {
                         _movieListUI.value = MovieListUI.Empty
@@ -46,19 +46,12 @@ class MovieViewModel(
 
     private fun saveLocal(movieList: List<Movie>) {
         viewModelScope.launch {
-            getMovieList.run(true).fold(
+            insertMovieList.run(movieList).fold(
                 onSuccess = {
-                    insertMovieList.run(movieList).fold(
-                        onSuccess = {
-                            println("SaveLocalSuccess: $it")
-                        },
-                        onFailure = {
-                            println("SaveLocalFailed: $it")
-                        }
-                    )
+                    println("SaveLocalSuccess: $it")
                 },
                 onFailure = {
-                    Unit
+                    println("SaveLocalFailed: $it")
                 }
             )
         }
