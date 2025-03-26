@@ -3,9 +3,14 @@ package com.example.data.source.local
 import com.example.data.model.MovieEntity
 import com.example.data.source.local.dao.MovieDao
 
-class MovieLocalDataSource(private val dao: MovieDao) {
+interface MovieLocalDataSource {
+    suspend fun fetchMovieList(): List<MovieEntity>
+    suspend fun insertMovieList(movieList: List<MovieEntity>)
+}
 
-    suspend fun fetchMovieList() = dao.getAll()
+class MovieLocalDataSourceImpl(private val dao: MovieDao) : MovieLocalDataSource{
 
-    suspend fun insertMovieList(movieList: List<MovieEntity>) = dao.insertAll(movieList)
+    override suspend fun fetchMovieList() = dao.getAll()
+
+    override suspend fun insertMovieList(movieList: List<MovieEntity>) = dao.insertAll(movieList)
 }
