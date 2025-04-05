@@ -32,10 +32,7 @@ android {
 
 dependencies {
     // network
-    implementation(libs.retrofit)
-    implementation(libs.gson.converter)
-    implementation(libs.okhttp)
-    implementation(libs.logging)
+    api("com.github.daniyar-amangeldi:network-kit:1.0.1")
     implementation(project(":domain"))
 
     // room

@@ -5,9 +5,9 @@ import com.example.data.mapper.movieResponseMapper
 import com.example.data.mapper.movieToMovieEntityMapper
 import com.example.data.source.local.MovieLocalDataSource
 import com.example.data.source.remote.MovieRemoteDataSource
-import com.example.data.util.repository.BaseRepository
 import com.example.domain.model.Movie
 import com.example.domain.repository.MovieRepository
+import com.example.networkkit.repository.BaseRepository
 
 class MovieRepositoryImpl(
     private val remoteDataSource: MovieRemoteDataSource,

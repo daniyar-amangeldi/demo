@@ -3,17 +3,19 @@ package com.example.demo.di
 import com.example.data.repository.MovieRepositoryImpl
 import com.example.data.source.remote.api.MovieApi
 import com.example.data.source.remote.MovieRemoteDataSource
-import com.example.data.util.network.NetworkConfig
-import com.example.data.util.network.NetworkManager
 import com.example.data.source.local.DatabaseProvider
 import com.example.data.source.local.MovieDatabase
 import com.example.data.source.local.MovieLocalDataSource
+import com.example.data.source.local.MovieLocalDataSourceImpl
 import com.example.data.source.local.dao.MovieDao
+import com.example.data.source.remote.MovieRemoteDataSourceImpl
 import com.example.demo.viewmodel.MovieDetailsViewModel
 import com.example.demo.viewmodel.MovieViewModel
 import com.example.domain.repository.MovieRepository
 import com.example.domain.usecase.GetMovieList
 import com.example.domain.usecase.InsertMovieList
+import com.example.networkkit.api.NetworkConfig
+import com.example.networkkit.api.NetworkManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -53,13 +55,13 @@ val movieModule = module {
     }
 
     single<MovieLocalDataSource> {
-        MovieLocalDataSource(
+        MovieLocalDataSourceImpl(
             dao = get<MovieDao>()
         )
     }
 
     single<MovieRemoteDataSource> {
-        MovieRemoteDataSource(
+        MovieRemoteDataSourceImpl(
             api = get<MovieApi>()
         )
     }
