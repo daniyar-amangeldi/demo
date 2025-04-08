@@ -12,6 +12,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.demo.R
 import com.example.demo.databinding.ActivityMainBinding
 import com.example.demo.util.BaseFragment
+import com.example.demo.view.util.EventManager
+import com.example.demo.view.util.RemoteConfigManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,21 +67,31 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.movie_list -> {
                     binding.viewPager.currentItem = 0
+                    EventManager(this).log("MovieListTabClicked")
                 }
 
                 R.id.movie_favourites -> {
                     binding.viewPager.currentItem = 1
+                    EventManager(this).log("MovieFavouritesTabClicked")
                 }
 
                 R.id.profile -> {
                     binding.viewPager.currentItem = 2
+                    EventManager(this).log("ProfileTabClicked")
                 }
             }
 
             true
         }
-    }
 
+        val isNewDesign = RemoteConfigManager(this).getBoolean("is_new_design")
+        println("Firebase RC: isNewDesign=$isNewDesign")
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            val token = task.result
+            println("FCM Token: $token")
+        }
+    }
 }
 
 class PagerAdapter(
