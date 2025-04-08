@@ -20,7 +20,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/daniyar-amangeldi/networkkit")
             credentials {
                 username = "daniyar-amangeldi"
-                password = "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"
+                password = ""
             }
         }
     }
