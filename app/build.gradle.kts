@@ -64,6 +64,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    // networkkit
+    implementation("com.github.daniyar-amangeldi:network-kit:1.0.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
